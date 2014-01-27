@@ -27,7 +27,8 @@ exports.template = function(grunt, init, done) {
     args.forEach(function(val, index, array) {
         if (!/^\-\-/.test(val)) {
             modules.push(val);
-            modulesStr += ',"background/module/'+val+'/run.js"\n';
+            modulesStr += '\n,"background/module/'+val+'/run.js"';
+            modulesStr += '\n,"background/module/'+val+'/module.js"';
         }
         else if (val==='--module') {
             justModule = true;
@@ -65,12 +66,14 @@ exports.template = function(grunt, init, done) {
             files = {};
             var tmp = 'background/module/'+modules[i]+'/run.js';
             files[tmp] = 'template/module/run.js';
+            files['background/module/'+modules[i]+'/module.js'] = 'template/module/module.js';
             files['background/module/'+modules[i]+'/content.js'] = 'template/module/content.js';
             files['background/module/'+modules[i]+'/content.css'] = 'template/module/content.css';
             props['_Module_Name_'] = modules[i];
             init.copyAndProcess(files, props);
             if (justModule && manifestContent.background.scripts.indexOf(tmp)===-1) {
                 manifestContent.background.scripts.push(tmp);
+                manifestContent.background.scripts.push('background/module/'+modules[i]+'/module.js');
             }
         }
 

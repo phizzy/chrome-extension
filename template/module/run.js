@@ -1,15 +1,5 @@
 // 该文件内的代码在chrome后台运行
 
-
-// 声明可被前端调用的Modle
-var Module = Module || {};
-Module.{%=_Module_Name_%} = {
-    debug: function(data) {
-        console.log(data);
-    }
-};
-
-
 // tab加载完之后，在页面执行js和css
 chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
     if (info.status!=='complete') {
