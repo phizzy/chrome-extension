@@ -1,11 +1,11 @@
-var runFrontend = function(script, callback) {
+var runFrontend = function(script, json, callback) {
     chrome.tabs.query({
         'active': true
         ,'currentWindow': true
     }, function(tabs) {
         (function(tab) {
             chrome.tabs.executeScript(tab.id, {
-                code: '('+script.toString()+')()'
+                code: '('+script.toString()+')(\''+JSON.stringify(json)+'\')'
             }, callback || function() {});
         })(tabs[0]);
     });
