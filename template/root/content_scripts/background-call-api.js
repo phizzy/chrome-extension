@@ -5,5 +5,5 @@ var runBackground = function(event, request) {
         request = request || {};
     request.module = sevent[0];
     request.method = sevent[1];
-    chrome.extension.sendMessage(request);
+    chrome.runtime.sendMessage(request);
 };

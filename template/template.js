@@ -17,21 +17,31 @@ exports.description = '基于GruntJS创建Chrome Extension的模板';
 exports.template = function(grunt, init, done) {
     var args = process.argv.slice(3);
     if (!args.length) {
-        console.warn('\tErro:\t请输入module name, 空格分隔多个');
+        console.warn('\t1.\t请输入module name, 空格分隔多个');
+        console.warn('\t2.\t--module: 仅增加module');
+        console.warn('\t3.\t--devtool: 添加devtool扩展');
         return;
     }
 
     var modules = [],
         modulesStr = '',
-        justModule = false;
+        justModule = false,
+        hasDevTool = false;
     args.forEach(function(val, index, array) {
         if (!/^\-\-/.test(val)) {
             modules.push(val);
             modulesStr += '\n,"background/module/'+val+'/run.js"';
             modulesStr += '\n,"background/module/'+val+'/module.js"';
         }
-        else if (val==='--module') {
-            justModule = true;
+        else {
+            switch (val) {
+            case '--module':
+                justModule = true;
+                break;
+            case '--devtool':
+                hasDevTool = true;
+                break;
+            };
         }
     });
 
@@ -40,6 +50,7 @@ exports.template = function(grunt, init, done) {
 
     init.process({
         modules: modulesStr
+        ,hasDevTool: hasDevTool
     }, [
         init.prompt('name', 'Name')
         ,init.prompt('description', 'Description')
@@ -57,27 +68,36 @@ exports.template = function(grunt, init, done) {
             // Actually copy (and process) files.
             init.copyAndProcess(files, props, {noProcess: 'icons/*'});
         }
-        else {
+
+        var needWriteJSON = false;
+        if (justModule || hasDevTool) {
             var manifestFile = init.destpath() + '/manifest.json';
             var manifestContent = grunt.file.readJSON(manifestFile);
+            needWriteJSON = true;
         }
 
-        for (var i=0,l=modules.length; i<l; i++) {
-            files = {};
-            var tmp = 'background/module/'+modules[i]+'/run.js';
-            files[tmp] = 'template/module/run.js';
-            files['background/module/'+modules[i]+'/module.js'] = 'template/module/module.js';
-            files['background/module/'+modules[i]+'/content.js'] = 'template/module/content.js';
-            files['background/module/'+modules[i]+'/content.css'] = 'template/module/content.css';
-            props['_Module_Name_'] = modules[i];
-            init.copyAndProcess(files, props);
-            if (justModule && manifestContent.background.scripts.indexOf(tmp)===-1) {
-                manifestContent.background.scripts.push(tmp);
-                manifestContent.background.scripts.push('background/module/'+modules[i]+'/module.js');
+        if (modules.length) {
+            for (var i=0,l=modules.length; i<l; i++) {
+                files = {};
+                var tmp = 'background/module/'+modules[i]+'/run.js';
+                files[tmp] = 'template/module/run.js';
+                files['background/module/'+modules[i]+'/module.js'] = 'template/module/module.js';
+                files['background/module/'+modules[i]+'/content.js'] = 'template/module/content.js';
+                files['background/module/'+modules[i]+'/content.css'] = 'template/module/content.css';
+                props['_Module_Name_'] = modules[i];
+                init.copyAndProcess(files, props);
+                if (needWriteJSON && manifestContent.background.scripts.indexOf(tmp)===-1) {
+                    manifestContent.background.scripts.push(tmp);
+                    manifestContent.background.scripts.push('background/module/'+modules[i]+'/module.js');
+                }
             }
         }
 
-        if (justModule) {
+        if (hasDevTool) {
+            manifestContent.devtools_page = 'devtools/index.html';
+        }
+
+        if (needWriteJSON) {
             grunt.file.write(manifestFile, JSON.stringify(manifestContent));
         }
 
