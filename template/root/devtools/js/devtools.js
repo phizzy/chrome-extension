@@ -4,7 +4,7 @@ var pluginTitle = '{%=name%}';
 
 // The following code adds a sidebar pane contained in sidebar.html and titled pluginTitle to the Elements panel
 chrome.devtools.panels.elements.createSidebarPane(pluginTitle, function(sidebar) {
-    sidebar.setPage('sidebar.html');
+    sidebar.setPage('devtools/sidebar.html');
     sidebar.setHeight('100%');
 });
 

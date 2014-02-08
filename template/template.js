@@ -76,6 +76,10 @@ exports.template = function(grunt, init, done) {
             needWriteJSON = true;
         }
 
+        if (hasDevTool) {
+            manifestContent.devtools_page = 'devtools/index.html';
+        }
+
         if (modules.length) {
             for (var i=0,l=modules.length; i<l; i++) {
                 files = {};
@@ -91,10 +95,6 @@ exports.template = function(grunt, init, done) {
                     manifestContent.background.scripts.push('background/module/'+modules[i]+'/module.js');
                 }
             }
-        }
-
-        if (hasDevTool) {
-            manifestContent.devtools_page = 'devtools/index.html';
         }
 
         if (needWriteJSON) {
