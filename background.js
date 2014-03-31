@@ -9,27 +9,47 @@ function sleep(ts) {
 
 var storage = {
     get: function(key, defaultValue) {
-        var data = {};
-        var result;
-        data[key] = defaultValue===undefined ? false : defaultValue;
-        chrome.storage.local.get(data, function(items) {
-            result = items[key];
-        });
-        return result;
+        var result = localStorage.getItem(key);
+        switch (result) {
+            case null:
+                return defaultValue;
+                break;
+            case 'true':
+            case '1':
+                return true;
+                break;
+            case 'false':
+            case '0':
+                return false;
+                break;
+            default:
+                return result;
+        }
     }
 };
 
+var patterns = {
+    js: /[^\?\#]+\.js(\?|\#|\/|$)/i
+    ,css: /[^\?\#]+\.css(\?|\#|\/|$)/i
+    ,img: /[^\?\#]+\.(?:(?:jpg)|(?:png)|(?:gif))(\?|\#|\/|$)/i
+};
+function getType(url) {
+    for (var key in patterns) {
+        if (patterns[key].test(url)) {
+            return key;
+        }
+    }
+};
+
+var urls = storage.get('urls', ['*://*/*']);
+
 // 发送请求之前
 chrome.webRequest.onBeforeRequest.addListener(function(info) {
-    var disableJS = storage.get('disableJS');
-    if (disableJS && /[^\?\#]+\.js(\?|\#|\/|$)/.test(info.url)) {
-        alert(info.url);
-        return {cancel: true};
-    }
+    var type = getType(info.url),
+        key = 'disable' + type.toUpperCase();
+    if (storage.get(key)) return {cancel: true};
 }, {
-    urls: [
-        '*://*/*'
-    ]
+    urls: urls
 }, [
     'blocking'
 ]);
