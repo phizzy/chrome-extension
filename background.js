@@ -48,6 +48,15 @@ chrome.webRequest.onBeforeRequest.addListener(function(info) {
     var type = getType(info.url),
         key = 'disable' + type.toUpperCase();
     if (storage.get(key)) return {cancel: true};
+    var speeds = storage.get('speeds');
+    switch (speeds) {
+        case 'speed2G':
+            sleep(10000);
+            break;
+        case 'speed3G':
+            sleep(3000);
+            break;
+    }
 }, {
     urls: urls
 }, [

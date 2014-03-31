@@ -20,7 +20,7 @@
             ,"38": "icons/icon.48.png"
         }
         ,"default_title": "Slowly Me"
-        ,"default_popup": "options.html"
+        ,"default_popup": "browserAction/index.html"
     }
     ,"permissions": [
         "<all_urls>"

@@ -1,0 +1,9 @@
+body {
+    font-family: "微软雅黑";
+    font-size: 12px;
+    width: 450px;
+}
+.nowrap {
+    white-space: nowrap;
+    line-height: 1.75em;
+}

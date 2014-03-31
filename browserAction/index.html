@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SlowlyMe</title>
+    <link rel="stylesheet" href="index.css" type="text/css" media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+    <fieldset>
+        <legend>开关</legend>
+        <div class="nowrap">
+            <input id="disableJS" name="disableJS" type="checkbox" />
+            <label for="disableJS">禁用JavaScript</label>
+        </div>
+        <div class="nowrap">
+            <input id="disableCSS" name="disableCSS" type="checkbox" />
+            <label for="disableCSS">禁用CSS</label>
+        </div>
+        <div class="nowrap">
+            <input id="disableIMG" name="disableIMG" type="checkbox" />
+            <label for="disableIMG">禁止显示图片</label>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>速度控制</legend>
+        <div class="nowrap">
+            <input id="speedDefault" name="speeds" type="radio"/>
+            <label for="speedDefault">实际网络状态</label>
+        </div>
+        <div class="nowrap">
+            <input id="speed2G" name="speeds" type="radio"/>
+            <label for="speed2G">模拟2G网络</label>
+        </div>
+        <div class="nowrap">
+            <input id="speed3G" name="speeds" type="radio"/>
+            <label for="speed3G">模拟3G网络</label>
+        </div>
+    </fieldset>
+
+    <script src="index.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

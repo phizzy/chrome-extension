@@ -20,22 +20,29 @@ var storage = {
 };
 
 (function() {
-    var eles = document.querySelectorAll('[type=checkbox]');
+    var eles = document.querySelectorAll('[name^=disable]');
     Array.prototype.forEach.call(eles, function(ele) {
         ele.addEventListener('change', function() {
             localStorage.setItem(this.id, this.checked);
         });
+        ele.checked =  storage.get(ele.id) ? 'checked' : '';
     });
-})();
 
-(function() {
-    var ids = [
-            'js', 'css', 'img'
-        ];
-    var ele, key;
-    for (var i=0,l=ids.length; i<l; i++) {
-        key = 'disable' + ids[i].toUpperCase();
-        ele = document.querySelector('#' + key);
-        ele.checked =  storage.get(key) ? 'checked' : '';
+    eles = document.querySelectorAll('[name=speeds]');
+    var checked = false;
+    Array.prototype.forEach.call(eles, function(ele) {
+        ele.addEventListener('change', function() {
+            localStorage.setItem('speeds', this.id);
+        });
+        if (storage.get('speeds')===ele.id) {
+            ele.checked = 'checked';
+            checked = true;
+        }
+        else {
+            ele.checked = '';
+        }
+    });
+    if (!checked) {
+        eles[0].checked = 'checked';
     }
 })();
