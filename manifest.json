@@ -14,9 +14,11 @@
             "background.js"
         ]
     }
+    ,"options_page": "options.html"
     ,"permissions": [
         "<all_urls>"
         ,"webRequest"
         ,"webRequestBlocking"
+        ,"storage"
     ]
 }
