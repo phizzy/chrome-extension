@@ -1,0 +1,37 @@
+{
+    "name": "{%=name%}"
+    ,"version": "{%=version%}"
+    ,"manifest_version": 2
+    ,"description": "{%=description%}"
+    ,"icons": {
+        "16": "icons/icon.16.png"
+        ,"48": "icons/icon.48.png"
+        ,"128": "icons/icon.128.png"
+    }
+    ,"background": {
+        "scripts": [
+            "background/main.js"
+            {%=modules%}
+        ]
+        ,"persistent": true 
+    }
+    ,"content_scripts": [
+        {
+            "matches": ["http://*/*","https://*/*"]
+            ,"js": [
+                "content_scripts/jquery.min.js"
+                ,"content_scripts/jquery.cookie.js"
+                ,"content_scripts/jquery-ui.js"
+                ,"content_scripts/background-call-api.js"
+            ]
+            ,"css": [
+                "content_scripts/jquery-ui.css"
+            ]
+        }
+    ]
+    ,"options_page": "options.html"
+    ,"permissions": [
+        "<all_urls>"
+        ,"tabs"
+    ]
+}
