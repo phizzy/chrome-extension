@@ -9,7 +9,6 @@ function sleep(ts) {
 
 // 发送请求之前
 chrome.webRequest.onBeforeRequest.addListener(function(info) {
-
 }, {
     urls: [
         '*://*/*'
