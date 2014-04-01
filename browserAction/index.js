@@ -52,6 +52,7 @@ chrome.tabs.query({
     ,active: true
 }, function(tabs) {
     var id = tabs[0].id;
+    localStorage.setItem('tabid', id);
     document.querySelector('#ok').addEventListener('click', function() {
         chrome.tabs.reload(id);
     });

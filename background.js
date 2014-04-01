@@ -42,6 +42,11 @@ var urls = storage.get('urls', ['http://*/*', 'https://*/*']);
 
 // 发送请求之前
 chrome.webRequest.onBeforeRequest.addListener(function(info) {
+    var id = info.tabId + '',
+        tabid = localStorage.getItem('tabid');
+    if (tabid!==id) {
+        return;
+    }
     var type = getType(info.url),
         key = 'disable' + type.toUpperCase();
     if (storage.get(key)) return {cancel: true};
