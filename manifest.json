@@ -1,5 +1,4 @@
 {
-    // Required
     "name": "Web Request Manager"
     ,"version": "0.1.0"
     ,"manifest_version": 2
@@ -24,7 +23,6 @@
         ,"default_title": "Web Request Manager"
         ,"default_popup": "browserAction/index.html"
     }
-    //,"options_page": "options/index.html"
     ,"permissions": [
         "<all_urls>"
         ,"tabs"
