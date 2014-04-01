@@ -1,10 +1,7 @@
 function sleep(ts) {
     var origin = (new Date()).getTime();
     var current;
-    while (true) {
-        current = (new Date()).getTime();
-        if (current - origin >= ts) break;
-    }
+    while (((new Date()).getTime() - origin) < ts) {}
 }
 
 var storage = {
@@ -41,7 +38,7 @@ function getType(url) {
     }
 };
 
-var urls = storage.get('urls', ['*://*/*']);
+var urls = storage.get('urls', ['http://*/*', 'https://*/*']);
 
 // 发送请求之前
 chrome.webRequest.onBeforeRequest.addListener(function(info) {
@@ -62,24 +59,3 @@ chrome.webRequest.onBeforeRequest.addListener(function(info) {
 }, [
     'blocking'
 ]);
-
-// // 发送请求header之前
-// chrome.webRequest.onBeforeSendHeaders.addListener(function(info) {
-// }, {
-//     urls: [
-//         '*://*/*'
-//     ]
-// }, [
-//     'blocking'
-// ]);
-// 
-// // 响应header接受完成
-// chrome.webRequest.onHeadersReceived.addListener(function(info) {
-//     sleep(5000);
-// }, {
-//     urls: [
-//         '*://*/*'
-//     ]
-// }, [
-//     'blocking'
-// ]);

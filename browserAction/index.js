@@ -46,3 +46,13 @@ var storage = {
         eles[0].checked = 'checked';
     }
 })();
+
+chrome.tabs.query({
+    currentWindow: true
+    ,active: true
+}, function(tabs) {
+    var id = tabs[0].id;
+    document.querySelector('#ok').addEventListener('click', function() {
+        chrome.tabs.reload(id);
+    });
+});
