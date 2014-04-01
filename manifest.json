@@ -21,7 +21,7 @@
             "19": "icons/icon.19.png"
             ,"38": "icons/icon.38.png"
         }
-        ,"default_title": "Slowly Me"
+        ,"default_title": "Web Request Manager"
         ,"default_popup": "browserAction/index.html"
     }
     //,"options_page": "options/index.html"
