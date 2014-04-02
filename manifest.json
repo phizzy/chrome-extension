@@ -1,10 +1,10 @@
 {
     "name": "Web Request Manager"
-    ,"version": "0.1.2"
+    ,"version": "0.1.3"
     ,"manifest_version": 2
     ,"description": "管理网页请求，快速开关javascript、css和图片的加载；模拟3G和2G等低速网络环境的页面加载"
     ,"author": "HoGene"
-    ,"homepage_url": "http://pihizi.github.com/"
+    ,"homepage_url": "https://chrome.google.com/webstore/detail/web-request-manager/lpgbgohepefmapbbpefajkbkjbmlmcne?hl=zh-CN"
     ,"icons": {
         "16": "icons/icon.16.png"
         ,"48": "icons/icon.48.png"
