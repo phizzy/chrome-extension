@@ -1,6 +1,6 @@
 {
     "name": "Web Request Manager"
-    ,"version": "0.1.0"
+    ,"version": "0.1.1"
     ,"manifest_version": 2
     ,"description": "管理网页请求，快速开关javascript、css和图片的加载；模拟3G和2G等低速网络环境的页面加载"
     ,"author": "HoGene"
